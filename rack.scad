@@ -97,81 +97,65 @@ module trapezoid(top,base,height){
 
 // a simple pinion and translation / rotation to make it mesh the rack
 //translate([0,-20,0]) rotate([0,0,360/16/2]) pinion(2.5,16,6,5);
-
+mirror([0,1,0]) {
 $thickness=6;
 $drill3=3.2;
 
 difference() {
     union() {
         // 0.8 mod pitch
-        translate([-0.1,1-6.5,$thickness]) rotate([0,180,0]) rack(2.513,25,$thickness,2);
+        translate([73.9,1,$thickness]) rotate([0,180,0]) rack(2.513,25,$thickness,2);
+        
         hull() {
-            translate([-5,-1.5,0]) cylinder(r=5,h=$thickness);
-            translate([-5,25,0]) cylinder(r=5,h=$thickness);
-            translate([-70+$thickness,-6.5,0]) cube([5,5,$thickness]);
-            translate([-70+$thickness,25,0]) cube([5,5,$thickness]);
-        }
-        hull() {
-            translate([30,-6.5,0]) cube([1,1,$thickness]);
-            translate([26,5,0]) cylinder(r=5,h=$thickness);
-            translate([0,-1.5,0]) cylinder(r=5,h=$thickness);
-            translate([0,5,0]) cylinder(r=5,h=$thickness);
+            translate([0,0,0]) cube([5,5,$thickness]);
+            translate([100,0,0]) cube([5,5,$thickness]);
+            translate([0,25,0]) cube([5,5,$thickness]);
+            translate([100,25,0]) cube([5,5,$thickness]);
         }
 
-        // For round inside corner
-        translate([0,10,0]) cube([5,5,$thickness]);
-
-        // Joining tab
-        translate([-70,11,0]) cube([$thickness,8,$thickness]);
     }
     
     hull() {
-        translate([-65,-5,-1]) cylinder(r=5,h=$thickness+2);
-        translate([-40,-7,-1]) cylinder(r=7,h=$thickness+2);
-    }
-    
-    // Joining tab shape
-    translate([-70+$thickness-0.8,11,-1]) cylinder(r=0.8,h=$thickness+2);
-    translate([-70+$thickness-0.8,19,-1]) cylinder(r=0.8,h=$thickness+2);
-
-    // Captive nuts
-    hull() {
-        translate([-70,7,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-        translate([-70+$thickness+10,7,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([40,5,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([40,10,-1]) cylinder(r=$drill3/2,h=$thickness+2);
     }
     hull() {
-        translate([-70+$thickness+3,4,-1]) cylinder(r=0.5,h=$thickness+2);
-        translate([-70+$thickness+3,10,-1]) cylinder(r=0.5,h=$thickness+2);
-        translate([-70+$thickness+5,4,-1]) cylinder(r=0.5,h=$thickness+2);
-        translate([-70+$thickness+5,10,-1]) cylinder(r=0.5,h=$thickness+2);
-    }
-    hull() {
-        translate([-70,23,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-        translate([-70+$thickness+10,23,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-    }
-    hull() {
-        translate([-70+$thickness+3,26,-1]) cylinder(r=0.5,h=$thickness+2);
-        translate([-70+$thickness+3,20,-1]) cylinder(r=0.5,h=$thickness+2);
-        translate([-70+$thickness+5,26,-1]) cylinder(r=0.5,h=$thickness+2);
-        translate([-70+$thickness+5,20,-1]) cylinder(r=0.5,h=$thickness+2);
+        translate([40,20,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([40,25,-1]) cylinder(r=$drill3/2,h=$thickness+2);
     }
 
-    translate([5,15,-1]) cylinder(r=5,h=$thickness+2);
-    
     hull() {
-        translate([-20+5,5,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-        translate([-20+5,10,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([50,5,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([50,10,-1]) cylinder(r=$drill3/2,h=$thickness+2);
     }
+
     hull() {
-        translate([-20+5,20,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-        translate([-20+5,25,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([50,20,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+        translate([50,25,-1]) cylinder(r=$drill3/2,h=$thickness+2);
     }
-    hull() {
-        translate([-20-5,5,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-        translate([-20-5,10,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-    }
-    hull() {
-        translate([-20-5,20,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-        translate([-20-5,25,-1]) cylinder(r=$drill3/2,h=$thickness+2);
-    }
+
+//    hull() {
+//        translate([0-5,5,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+//        translate([0-5,10,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+//    }
+//    hull() {
+//        translate([0-5,20,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+//        translate([0-5,25,-1]) cylinder(r=$drill3/2,h=$thickness+2);
+//    }
+}
+
+$drill2=2.15;
+
+translate([$thickness,0,$thickness-0.1]) rotate([0,-90,0])
+difference() {
+    cube([25,30,$thickness]);
+
+    // Motor
+    translate([12.5,15,-1]) cylinder(r=8,h=$thickness+2);
+    translate([12.5+8, 15+8, -1]) cylinder(r=$drill2/2,h=$thickness+2);
+    translate([12.5+8, 15-8, -1]) cylinder(r=$drill2/2,h=$thickness+2);
+    translate([12.5-8, 15+8, -1]) cylinder(r=$drill2/2,h=$thickness+2);
+    translate([12.5-8, 15-8, -1]) cylinder(r=$drill2/2,h=$thickness+2);
+}
+
 }
